@@ -1,14 +1,8 @@
-<h1  align=center  >Wildfire Prediction in Satellite Imagery</h1>
+<h1  align=center  >Forest Fire Prediction in Satellite Imagery</h1>
 
-<br>
 
-<img  src="https://raw.githubusercontent.com/doguilmak/Wildfire-Prediction-from-Satellite-Imagery/main/assets/wildfire_canada.png"  width=1000  height=250  alt="github.com/doguilmak/Wildfire-Prediction-from-Satellite-Imagery"/>
 
-<small>Picture Source: <a  href="https://github.com/doguilmak/Wildfire-Prediction-from-Satellite-Imagery">Doğu İlmak GitHub</a></small>
-
-<br>
-
-<h2>Predicting Wildfires with Convolutional Neural Networks (CNNs)</h2>
+<h2>Predicting Forest Fires with Convolutional Neural Networks (CNNs)</h2>
 
 <p>Wildfires pose a significant threat to ecosystems, wildlife, and human lives, making early detection and prediction crucial for effective wildfire management. Convolutional Neural Networks (CNNs) have emerged as a powerful tool for predicting wildfires due to their ability to extract complex patterns from spatial data, such as satellite images and weather data. CNNs can analyze various factors that contribute to wildfire risk, including vegetation density, temperature, humidity, and wind speed. By training CNNs on historical wildfire data and environmental factors, these models can learn to identify patterns indicative of potential wildfire outbreaks. One of the key advantages of using CNNs for wildfire prediction is their ability to process large-scale, high-resolution satellite imagery quickly. This allows for real-time monitoring of wildfire-prone areas, enabling early detection and timely deployment of firefighting resources.</p>
 
@@ -94,3 +88,4 @@ On below, there are informations about the notebooks created respectively.
 	 <li>Twitter: <a href="https://twitter.com/Doguilmak">Doguilmak</a></li>
 	 <li>Mail address: doguilmak@gmail.com</li>
 </ul>
+
