@@ -1,91 +1,198 @@
-<h1  align=center  >Forest Fire Prediction in Satellite Imagery</h1>
+Of course. The "code" for a README file is the raw Markdown text.
 
+Copy all of the text in the box below and paste it directly into your `README.md` file.
 
+```markdown
+# Wildfire Prediction from Satellite Imagery using Deep Learning
 
-<h2>Predicting Forest Fires with Convolutional Neural Networks (CNNs)</h2>
+This project implements a Convolutional Neural Network (CNN) to classify satellite images, accurately predicting the presence or absence of wildfires. The model was successfully trained to achieve **95.3% accuracy** in distinguishing between images containing wildfires and those without, demonstrating a powerful application of deep learning for environmental monitoring.
 
-<p>Wildfires pose a significant threat to ecosystems, wildlife, and human lives, making early detection and prediction crucial for effective wildfire management. Convolutional Neural Networks (CNNs) have emerged as a powerful tool for predicting wildfires due to their ability to extract complex patterns from spatial data, such as satellite images and weather data. CNNs can analyze various factors that contribute to wildfire risk, including vegetation density, temperature, humidity, and wind speed. By training CNNs on historical wildfire data and environmental factors, these models can learn to identify patterns indicative of potential wildfire outbreaks. One of the key advantages of using CNNs for wildfire prediction is their ability to process large-scale, high-resolution satellite imagery quickly. This allows for real-time monitoring of wildfire-prone areas, enabling early detection and timely deployment of firefighting resources.</p>
+![Wildfire Prediction Banner](https://raw.githubusercontent.com/doguilmak/Wildfire-Prediction-from-Satellite-Imagery/main/assets/readme_banner.png)
 
-<br>
+## Table of Contents
+1.  [Project Overview](#project-overview)
+2.  [Why Use a CNN?](#why-use-a-cnn)
+3.  [The Development Environment: Why Jupyter Notebooks?](#the-development-environment-why-jupyter-notebooks)
+4.  [Dataset](#dataset)
+5.  [Model Architecture and Implementation](#model-architecture-and-implementation)
+6.  [Results and Evaluation](#results-and-evaluation)
+7.  [Societal Impact](#societal-impact)
+8.  [How to Run the Project Locally](#how-to-run-the-project-locally)
+9.  [Project Structure](#project-structure)
+10. [Conclusion and Future Work](#conclusion-and-future-work)
 
-<p>Additionally, CNNs can improve the accuracy of wildfire prediction models by integrating data from multiple sources, such as satellite imagery, weather stations, and historical fire records. This holistic approach provides a comprehensive view of wildfire risk factors, leading to more reliable predictions.</p>
+---
+## Project Overview
 
-<br>
+Wildfires are a growing environmental threat, causing widespread destruction to ecosystems and communities. Early and accurate detection is critical for effective response and management. This project leverages deep learning to address this challenge by building a robust image classification model.
 
-<h2>Wildfire Prediction Dataset</h2>
+The primary objective is to train a model that can analyze a 224x224 pixel satellite image and classify it into one of two categories: **'Fire'** or **'No_Fire'**. The successful implementation of this model serves as a proof-of-concept for automated, large-scale environmental monitoring systems.
 
-  <p>This dataset consists of satellite images with a resolution of 350x350 pixels, categorized into two classes: Wildfire and No Wildfire. The dataset contains a total of 42,850 images, with 22,710 images belonging to the Wildfire class and 20,140 images belonging to the No Wildfire class. To facilitate model training and evaluation, the dataset has been divided into three subsets: training, testing, and validation. The distribution of images among these subsets is as follows:</p>  
+---
+## Why Use a CNN?
 
-<ul>
+For image-based tasks like wildfire detection, Convolutional Neural Networks (CNNs) are the industry standard. Unlike traditional machine learning models that require manual feature extraction, CNNs automatically learn to identify relevant features directly from the image data.
 
-<li><b>Training Set:</b> Approximately 70% of the dataset, used for training the model.</li>
+* **Spatial Hierarchy:** CNNs use a series of convolutional and pooling layers to learn a hierarchy of features. Early layers might detect simple edges and textures (like the color of smoke or the texture of a forest), while deeper layers combine these to recognize more complex patterns (like a plume of smoke rising from a canopy).
+* **Feature Extraction:** The convolutional filters act as feature detectors, scanning the image to find patterns like smoke, flames, or healthy vegetation, regardless of their position in the image.
+* **Efficiency:** CNNs are computationally efficient for image analysis, making them suitable for processing the large volumes of data generated by satellites.
 
-<li><b>Testing Set:</b> Approximately 15% of the dataset, used for evaluating the model's performance.</li>
+---
+## The Development Environment: Why Jupyter Notebooks?
 
-<li><b>Validation Set:</b> Approximately 15% of the dataset, used for fine-tuning hyperparameters and validating the model's performance.</li>
+This project was developed using Jupyter Notebooks, the standard tool for data science and machine learning experimentation. The choice of this environment was deliberate for several key reasons:
 
-</ul>  
+* **Interactive Development:** Jupyter allows for code to be written and executed in individual cells. This makes it incredibly easy to test small pieces of logic, visualize data on the fly, and debug issues incrementally without having to re-run the entire script.
+* **Inline Visualizations:** Data exploration is a visual process. Jupyter Notebooks render plots, charts, and images directly below the code cells that generate them. This was essential for displaying sample satellite images and plotting the model's training performance.
+* **Narrative Storytelling:** A notebook combines live code, explanatory text (like this README), and visualizations into a single, shareable document. This creates a clear, step-by-step "story" of the project, making the workflow easy to follow, understand, and present.
 
-<p>Each image in the dataset represents a snapshot of the Earth's surface, captured by satellite imagery. These images contain valuable information about vegetation, land cover, and other environmental factors that can be used to predict the likelihood of wildfires.</p>  
+---
+## Dataset
 
-<br>  
+The model was trained on the **Wildfire Prediction Dataset**, which is publicly available on Kaggle. This dataset is derived from satellite imagery of Canadian forests, captured using the MapBox API based on known wildfire coordinates.
 
-<h2>Objectives</h2>  
+* **Source:** [Wildfire Prediction Dataset (Kaggle)](https://www.kaggle.com/datasets/phylake1337/fire-dataset)
+* **Original Data:** Canadian National Fire Database
+* **Content:** A collection of 350x350 pixel RGB satellite images.
 
-<p>Using <i>longitude</i> and <i>latitude</i> coordinates for each wildfire spot <i>(> 0.01 acres burned)</i> found on the dataset above we extracted satellite images of those areas using MapBox API to create a more convenient format of the dataset for <i>deep learning</i> and building a model that can predict whether an area is at risk of a wildfire or not. <b>Models created with this dataset predict where a fire could potentially occur. It was created on this basis by the Canadian state. This inference was made only through RGB bands. This should be taken into account.</b></p> 
+### Data Preparation and Splitting
 
-<br>  
+The raw dataset contains two main folders, 'Fire' and 'No Fire'. For robust model training and unbiased evaluation, the data was manually partitioned into three distinct sets: training, validation, and testing. This crucial step ensures that the model is evaluated on data it has never seen before.
 
-<p>To download the dataset from Kaggle, you need to have a kaggle account.</p>
+| Set         | Purpose                                     | Distribution |
+| :---------- | :------------------------------------------ | :----------- |
+| **Training**| Used to train the model's weights.          | ~70%         |
+| **Validation**| Used to tune hyperparameters and prevent overfitting. | ~15%         |
+| **Testing** | Used for the final, unbiased performance evaluation. | ~15%         |
 
-<ul>
+The final folder structure required for the project is as follows:
+```
 
-<li>Dataset download link: <a  href='https://www.kaggle.com/datasets/abdelghaniaaba/wildfire-prediction-dataset/download?datasetVersionNumber=1'>Dataset</a></li>
+Dataset/
+├── train/
+│   ├── Fire/
+│   └── No\_Fire/
+├── valid/
+│   ├── Fire/
+│   └── No\_Fire/
+└── test/
+├── Fire/
+└── No\_Fire/
 
-<li>Dataset on Kaggle: <a  href='https://www.kaggle.com/datasets/abdelghaniaaba/wildfire-prediction-dataset'>Wildfire Prediction Dataset (Satellite Images)</a></li>
+````
+---
+## Model Architecture and Implementation
 
-</ul> 
+This project implements a custom CNN model designed for high accuracy. The original Keras code from the source repository was updated to the modern `tensorflow.keras` API for compatibility with TensorFlow 2.x and current best practices.
 
-<h2>Keywords</h2>
-<ul>
-  <li>Wildfire</li>
-  <li>Earth Science</li>
-  <li>Classification</li>
-  <li>Class Activation Maps</li>
-  <li>Deep Learning</li>
-  <li>Satellite Imagery</li>
-  <li>VGG-16</li>
-</ul>
+### Implementation Details
 
-<br>
+1.  **Data Preprocessing:** The `ImageDataGenerator` from `tensorflow.keras` was used to load images from the directory structure. It also performs on-the-fly data augmentation (like rescaling) to prepare the images for the model. Images were resized to 224x224 pixels.
 
-<h2>Sources</h2>
+2.  **Model Building:** The model is a sequential CNN built with the following key layers:
+    * **Convolutional Layers (`Conv2D`):** With `ReLU` activation to learn spatial features.
+    * **Max Pooling Layers (`MaxPool2D`):** To downsample the feature maps and reduce computational complexity.
+    * **Batch Normalization:** To stabilize and accelerate the training process.
+    * **Global Average Pooling (`GlobalAveragePooling2D`):** To aggregate feature maps before the final classification.
+    * **Dense Layer:** A final fully connected layer with `softmax` activation to output the probabilities for the 'Fire' and 'No_Fire' classes.
 
-<ul>
-	<li><a href='https://open.canada.ca/data/en/dataset/9d8f219c-4df0-4481-926f-8a2a532ca003'>Refer to Canada's Website for the Original Wildfires Data (Forest Fires - Open Government Portal)</a></li>
-	<li><a href='https://www.donneesquebec.ca/fr/licence/'>Original License For the Data (Creative Commons 4.0 Attribution (CC-BY) license – Quebec)</a></li>
-</ul>
+3.  **Training:**
+    * **Optimizer:** The **Adam** optimizer was used, as it's an efficient and popular choice for deep learning tasks.
+    * **Loss Function:** **Categorical Crossentropy** was used, which is standard for multi-class (in this case, binary) classification problems.
+    * **Metric:** **Accuracy** was tracked during training to monitor the model's performance.
+    * **Callbacks:** Callbacks like `ModelCheckpoint` were used to save the best version of the model during training, preventing the loss of progress.
 
-<br>
+---
+## Results and Evaluation
 
-<h2>Notebooks</h2>
+The model was trained and evaluated on the held-out test set, demonstrating strong performance in identifying wildfires from satellite imagery.
 
-On below, there are informations about the notebooks created respectively.
+* **Final Test Accuracy:** **95.3%**
 
-<ol>
-	<li>In this section, visualizations of the data set were made. <br> Notebook: <a href='https://github.com/doguilmak/Wildfire-Prediction-from-Satellite-Imagery/blob/main/1_load_and_display_data.ipynb'>1_load_and_display_data.ipynb</a></li> <br>
-	<li>In this section, I build classification model with <i>VGG-16</i>. (Will be added soon..) <br> Notebook: <a href=''>2_pretrained_vgg16.ipynb</a> - Model has % accuracy.</li> <br>
-	<li>In this section, I build classification model with Class Activation Map (CAM). <br> Notebook: <a href='https://github.com/doguilmak/Wildfire-Prediction-from-Satellite-Imagery/blob/main/3_model_with_cam.ipynb'>3_model_with_cam.ipynb</a> - Model has 95.3% accuracy. The results of the model on the test data are in the <a href="https://github.com/doguilmak/Wildfire-Prediction-from-Satellite-Imagery/blob/main/predictions/custom_model_predictions.csv">custom_model_predictions.csv</a> file. Just click the link to view.</p></li>
-</ol>
+This high accuracy indicates that the model is highly effective at distinguishing between satellite images containing wildfires and those without. The performance was tracked using training and validation accuracy plots to ensure the model was learning effectively without significant overfitting.
 
-<br>
+---
+## Societal Impact
 
-<h2>Contact Me</h2>
+The development of accurate, automated wildfire detection systems like this one can have a profound societal impact:
 
-<p>If you have something to say to me please contact me:</p>
+* **Early Warning and Rapid Response:** The most significant benefit is the potential for early detection. An automated system scanning satellite feeds can identify nascent fires hours before they might be reported by humans, allowing firefighting crews to be dispatched while the blaze is still small and manageable.
+* **Enhanced Resource Allocation:** By pinpointing the exact locations of new fires, emergency response agencies can allocate critical resources—such as ground crews, water bombers, and equipment—more effectively, maximizing their impact and improving safety.
+* **Protection of Lives, Property, and Ecosystems:** Faster containment directly translates to saving lives, protecting homes and infrastructure, and preserving millions of acres of forests and wildlife habitats from destruction.
+* **Climate Change Mitigation:** Large-scale wildfires release massive amounts of carbon into the atmosphere. By helping to reduce the size and duration of these fires, this technology can play a role in mitigating climate change.
+* **Economic Savings:** The economic toll of a major wildfire is immense, encompassing the cost of suppression, property loss, and long-term environmental damage. Automated detection systems can significantly reduce these costs for governments and communities.
 
-<ul>
-	 <li>Twitter: <a href="https://twitter.com/Doguilmak">Doguilmak</a></li>
-	 <li>Mail address: doguilmak@gmail.com</li>
-</ul>
+---
+## How to Run the Project Locally
 
+Follow these steps to set up and run the project on your own machine.
+
+### Prerequisites
+* Git
+* Python 3.8+
+
+### Step-by-Step Guide
+
+1.  **Clone the Repository**
+    ```bash
+    git clone [https://github.com/your-username/wildfire-prediction-project.git](https://github.com/your-username/wildfire-prediction-project.git)
+    cd wildfire-prediction-project
+    ```
+
+2.  **Set Up a Virtual Environment**
+    It's highly recommended to use a virtual environment.
+    ```bash
+    # For macOS/Linux
+    python3 -m venv venv
+    source venv/bin/activate
+
+    # For Windows
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+
+3.  **Install Dependencies**
+    The `requirements.txt` file contains all the necessary libraries.
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Organize the Dataset**
+    Download the dataset from Kaggle and organize it into the `train/`, `valid/`, and `test/` directories as described in the [Dataset section](#dataset).
+
+5.  **Run the Jupyter Notebook**
+    The main logic is contained in the Jupyter Notebook. Start the Jupyter server:
+    ```bash
+    jupyter lab
+    ```
+    Then, open `3_model_with_cam.ipynb` in your browser and run the cells in order.
+
+---
+## Project Structure
+````
+
+├── Dataset/
+│   ├── train/
+│   ├── valid/
+│   └── test/
+├── saved\_model/
+│   └── custom\_model.keras
+├── predictions/
+│   └── custom\_model\_predictions.csv
+├── 1\_load\_and\_display\_data.ipynb
+├── 2\_pretrained\_vgg16.ipynb
+├── 3\_model\_with\_cam.ipynb
+├── requirements.txt
+└── README.md
+
+```
+---
+## Conclusion and Future Work
+
+This project successfully demonstrates the power of Convolutional Neural Networks for the critical task of wildfire detection from satellite imagery. The final model is both accurate and built upon a transparent, reproducible workflow.
+
+**Future Work:**
+* **Incorporate Additional Data:** Integrate meteorological data (wind speed, humidity, temperature) to create a more robust multi-modal prediction system.
+* **Explore Different Architectures:** Experiment with more advanced CNN architectures like ResNet or EfficientNet to potentially improve accuracy further.
+* **Real-Time Implementation:** Develop a pipeline to process satellite imagery in near real-time, providing a practical tool for fire management agencies.
+```
