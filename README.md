@@ -1,7 +1,3 @@
-Got it — here’s the clean **plain-text version** of your README, with no HTML tags, just beautiful Markdown formatting and spacing (perfect for GitHub or any markdown viewer):
-
----
-
 # 🔥 Wildfire Prediction from Satellite Imagery using Deep Learning 🌍
 
 **Accurate wildfire detection from satellite data using Convolutional Neural Networks (CNNs)**
@@ -218,3 +214,4 @@ This project demonstrates how **CNNs** can effectively detect wildfires from sat
 *“Project by two Awesome People - Anshveer Turna and Harsh Yadav”*
 
 ---
+
